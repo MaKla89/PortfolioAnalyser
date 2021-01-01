@@ -127,3 +127,6 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+/portfolio.csv
+/api_key.csv
+/api_key.txt
