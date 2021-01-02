@@ -19,8 +19,8 @@ Please provide a portfolio.csv that contains your portfolio-setup's details:
   - type (stock or crypto) and 
   - the invested money for each position)
   
- For further details on this portfolio-configuration take a look at the included demo-portfolio.csv file!
- If no portfolio.csv is provided, the included demo-file will be used for demonstration purposes.
+For further details on this portfolio-configuration take a look at the included demo-portfolio.csv file!
+If no portfolio.csv is provided, the included demo-file will be used for demonstration purposes.
  
 ### API-Key (for yahoo-finance via RapidAPI.com)
  
@@ -32,4 +32,8 @@ Both files (`portfolio.csv` & `api_key.txt`) need to be placed in the same folde
 
 # Usage
 
-Start the tool with `python main.py`. Once the flask-server is started, you can access the WebUI via "127.0.0.1:8085" from the same machine or from any other device within the same network by accessing "<server-IP>:8085" via a web-browser.
+Start the tool with `python main.py`. Once the flask-server is started, you can access the WebUI via "127.0.0.1:8085" from the same machine or from any other device within the same network by accessing "<server-IP>:8085" via a web-browser. After changing the content in your `portfolio.csv`-file you might have to reload the webUI or click on the "Load / Refresh Data" button.
+  
+# Usage with Docker
+
+Please mount your `portfolio.csv` & `api_key.txt` files directly into the root folder `/ ` and expose port 8085 or map it to a desired port. After this you can run the container and access the WebUI via "127.0.0.1:8085" from the same machine or from any other device within the same network by accessing "<server-IP>:8085" via a web-browser. After changing the content in your `portfolio.csv`-file you might have to reload the webUI or click on the "Load / Refresh Data" button.
