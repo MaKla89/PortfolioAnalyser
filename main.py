@@ -6,6 +6,7 @@ import dash_table
 from dash.dependencies import Input, Output
 import plotly.express as px
 
+
 port = database.Portfolio()
 port.update_portfolio()
 df = port.portfolio
