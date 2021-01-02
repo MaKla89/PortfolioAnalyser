@@ -1,4 +1,7 @@
 FROM python:latest
+
+ARG TAG=latest
+
 COPY main.py /
 COPY database.py /
 COPY demo-portfolio.csv /
