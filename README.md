@@ -1,6 +1,6 @@
 # PortfolioAnalyser
 
-This is a small tool that visually summarizes your porfolio consisting of stocks, ETFs and Crypto-Currencies in a dash-based WebUI.
+This is a small tool that visually summarizes your portfolio consisting of stocks, ETFs and Crypto-Currencies in a dash-based WebUI.
 That WebUI will be accessible on port 8085 of your machine.
 
 # Installation
@@ -28,7 +28,7 @@ Also acquire and provide a rapid-API-key (which is free but requires account-reg
 
 ### Where to place these two files
  
-Both files (`porfolio.csv` & `api_key.txt`) need to be placed in the same folder as the main.py
+Both files (`portfolio.csv` & `api_key.txt`) need to be placed in the same folder as the main.py
 
 # Usage
 
