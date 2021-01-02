@@ -14,7 +14,7 @@ external_stylesheets = ["https://codepen.io/chriddyp/pen/bWLwgP.css"]
 
 app = dash.Dash(external_stylesheets=external_stylesheets, title="Portfolio Analyser")
 
-allocation = px.pie(df, values = "Current Value", names="Name")
+allocation = px.pie(df, values="Current Value", names="Name")
 holdings_perf = px.bar(df, x="Name", y="Profit / Loss")
 
 app.layout = html.Div(children=[
@@ -99,16 +99,16 @@ app.layout = html.Div(children=[
 @app.callback(Output("table", "data"),
               Output("allocation", "figure"),
               Output("holdings_performance", "figure"),
-              Output("total_value","children"),
-              Output("total_invest","children"),
-              Output("total_PL","children"),
-              Output("total_PL_rel","children"),
+              Output("total_value", "children"),
+              Output("total_invest", "children"),
+              Output("total_PL", "children"),
+              Output("total_PL_rel", "children"),
               Input("refresh", "n_clicks"))
 def update(n_clicks):
     print("Update triggered!")
     port.load_portfolio()
     port.update_portfolio()
-    df = port.portfolio
+    df_temp = port.portfolio
     figure1 = px.pie(df, values="Current Value", names="Name")
     figure2 = px.bar(df, x="Name", y= "Profit / Loss")
     total_worth = str(port.total_worth)+" €"
@@ -116,7 +116,7 @@ def update(n_clicks):
     total_pl = str(port.total_profit_loss)+" €"
     total_pl_rel = str(port.total_profit_loss_rel)+" %"
 
-    return df.to_dict(orient='records'), figure1, figure2, total_worth, total_invest, total_pl, total_pl_rel
+    return df_temp.to_dict(orient='records'), figure1, figure2, total_worth, total_invest, total_pl, total_pl_rel
 
 
 app.run_server(debug=False, host="0.0.0.0", port=8085)

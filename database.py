@@ -5,8 +5,7 @@ import requests
 class Portfolio:
     def __init__(self):
         self.crypto_api_url = "https://api.coingecko.com/api/v3/simple/price?ids="
-        # self.yahoo_api_url = "https://yahoo-finance-low-latency.p.rapidapi.com/v6/finance/quote"  # Alternative API
-        self.yahoo_api_url = "https://apidojo-yahoo-finance-v1.p.rapidapi.com/market/v2/get-quotes"
+        self.yahoo_api_url = "https://yahoo-finance-low-latency.p.rapidapi.com/v6/finance/quote"
         self.portfolio = pd.DataFrame()
         self.load_portfolio()
         self.total_worth = 0
@@ -30,12 +29,12 @@ class Portfolio:
         for index, position in self.portfolio.iterrows():
             if position["Stock or Crypto"] == "stock":
                 stocks.append(str(position["Symbol"]))
-        stocks = ", ".join(stocks)
+        stocks = ",".join(stocks)
 
-        querystring = {"region": "DE", "symbols": str(stocks)}
+        querystring = {"symbols": str(stocks), "region": "DE"}
         headers = {
             'x-rapidapi-key': self.api_key,
-            'x-rapidapi-host': "apidojo-yahoo-finance-v1.p.rapidapi.com"
+            'x-rapidapi-host': "yahoo-finance-low-latency.p.rapidapi.com"
         }
         try:
             stocks_response = requests.request("GET", self.yahoo_api_url, headers=headers, params=querystring)
