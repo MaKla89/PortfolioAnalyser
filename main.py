@@ -15,7 +15,9 @@ external_stylesheets = ["https://codepen.io/chriddyp/pen/bWLwgP.css"]
 
 app = dash.Dash(external_stylesheets=external_stylesheets, title="Portfolio Analyser")
 
-allocation = px.pie(df, values="Current Value", names="Name")
+allocation = px.sunburst(df, values="Current Value", path=["Asset Class", "Name"])
+allocation.update_traces(textinfo="label+percent entry", insidetextorientation='auto', textfont_size=20)
+allocation.layout.update({"height": 700})
 holdings_perf = px.bar(df, x="Name", y="Profit / Loss")
 
 app.layout = html.Div(children=[
@@ -44,7 +46,7 @@ app.layout = html.Div(children=[
         ]),
     ]),
 
-    html.Div(className="row", style={"textAlign": "center", "font-size": "2em"}, children=[
+    html.Div(className="row", style={"textAlign": "center", "font-size": "1.8em"}, children=[
         html.Div(className="three columns", children=[
             html.P(id="total_value", children=str(port.total_worth) + " €")
         ]),
@@ -63,13 +65,15 @@ app.layout = html.Div(children=[
     ]),
 
     html.Div(children=[
-        html.H2(children="Asset Allocation",
-                style={"textAlign": "center", "marginTop": 50}),
-        dcc.Graph(
-            id='allocation',
-            figure=allocation,
-            style={"font_size": "2em"}
-        )
+
+        html.H2(children="Asset Allocation", style={"textAlign": "center", "marginTop": 50}),
+
+        html.Div(children=[
+            dcc.Graph(
+                id='allocation',
+                figure=allocation,
+            )
+        ]),
     ]),
 
     html.Div(children=[
@@ -92,7 +96,7 @@ app.layout = html.Div(children=[
             id='holdings_performance',
             figure=holdings_perf
         )
-    ],style={"marginTop": 50})
+    ], style={"marginTop": 50})
 
 ], style={"border": "50px white solid"})
 
@@ -110,14 +114,22 @@ def update(n_clicks):
     port.load_portfolio()
     port.update_portfolio()
     new_df = port.portfolio
-    figure1 = px.pie(new_df, values="Current Value", names="Name")
-    figure2 = px.bar(new_df, x="Name", y= "Profit / Loss")
+    allocation = px.sunburst(new_df, values="Current Value", path=["Asset Class", "Name"])
+    allocation.update_traces(textinfo="label+percent entry", insidetextorientation='auto',  textfont_size=20)
+    allocation.layout.update({"height": 700})
+    holdings_perf = px.bar(new_df, x="Name", y="Profit / Loss")
     total_worth = str(port.total_worth)+" €"
     total_invest = str(port.total_investment)+" €"
     total_pl = str(port.total_profit_loss)+" €"
     total_pl_rel = str(port.total_profit_loss_rel)+" %"
 
-    return new_df.to_dict(orient='records'), figure1, figure2, total_worth, total_invest, total_pl, total_pl_rel
+    return [new_df.to_dict(orient='records'),
+            allocation,
+            holdings_perf,
+            total_worth,
+            total_invest,
+            total_pl,
+            total_pl_rel]
 
 
 app.run_server(debug=False, host="0.0.0.0", port=8085)

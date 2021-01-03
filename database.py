@@ -27,7 +27,7 @@ class Portfolio:
     def update_portfolio(self):
         stocks = []
         for index, position in self.portfolio.iterrows():
-            if position["Stock or Crypto"] == "stock":
+            if position["Asset Class"] == "Stock" or position["Asset Class"] == "ETF":
                 stocks.append(str(position["Symbol"]))
         stocks = ",".join(stocks)
 
@@ -48,7 +48,7 @@ class Portfolio:
 
         for index, position in self.portfolio.iterrows():
 
-            if position["Stock or Crypto"] == "crypto":
+            if position["Asset Class"] == "Crypto":
 
                 try:
                     crypto_response = requests.get((str(self.crypto_api_url) +
@@ -73,7 +73,7 @@ class Portfolio:
                 win_loss = round(win_loss, 2)
                 self.portfolio.at[index, "Profit / Loss"] = win_loss
 
-            elif position["Stock or Crypto"] == "stock":
+            elif position["Asset Class"] == "Stock" or position["Asset Class"] == "ETF":
                 response_segment = next(x for x in stocks_response["quoteResponse"]["result"] if x["symbol"] == position["Symbol"])
                 new_price = float(response_segment["regularMarketPrice"])
                 self.portfolio.at[index,"Current Price"] = new_price
