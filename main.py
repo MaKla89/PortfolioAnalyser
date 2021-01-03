@@ -109,15 +109,15 @@ def update(n_clicks):
     print("Update triggered!")
     port.load_portfolio()
     port.update_portfolio()
-    df_temp = port.portfolio
-    figure1 = px.pie(df, values="Current Value", names="Name")
-    figure2 = px.bar(df, x="Name", y= "Profit / Loss")
+    new_df = port.portfolio
+    figure1 = px.pie(new_df, values="Current Value", names="Name")
+    figure2 = px.bar(new_df, x="Name", y= "Profit / Loss")
     total_worth = str(port.total_worth)+" €"
     total_invest = str(port.total_investment)+" €"
     total_pl = str(port.total_profit_loss)+" €"
     total_pl_rel = str(port.total_profit_loss_rel)+" %"
 
-    return df_temp.to_dict(orient='records'), figure1, figure2, total_worth, total_invest, total_pl, total_pl_rel
+    return new_df.to_dict(orient='records'), figure1, figure2, total_worth, total_invest, total_pl, total_pl_rel
 
 
 app.run_server(debug=False, host="0.0.0.0", port=8085)
