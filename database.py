@@ -12,6 +12,7 @@ class Portfolio:
         self.total_investment = 0
         self.total_profit_loss = 0
         self.total_profit_loss_rel = 0
+        self.total_realized_pl = 0
         self.f = open("api_key.txt", "r")           # Reads your Rapid-API-Key from .txt-File in same directory
         self.api_key = self.f.read()
 
@@ -69,7 +70,7 @@ class Portfolio:
                 current_value = float(float(position["Amount"])*new_price)
                 current_value = round(current_value, 2)
                 self.portfolio.at[index, "Current Value"] = current_value
-                win_loss = current_value - float(position["Investment"])
+                win_loss = current_value - float(position["Investment"]) + float(position["Realized P/L"])
                 win_loss = round(win_loss, 2)
                 self.portfolio.at[index, "Profit / Loss"] = win_loss
 
@@ -80,7 +81,7 @@ class Portfolio:
                 current_value = float(float(position["Amount"])*new_price)
                 current_value = round(current_value, 2)
                 self.portfolio.at[index, "Current Value"] = current_value
-                win_loss = current_value - float(position["Investment"])
+                win_loss = current_value - float(position["Investment"]) + float(position["Realized P/L"])
                 win_loss = round(win_loss, 2)
                 self.portfolio.at[index, "Profit / Loss"] = win_loss
 
@@ -89,6 +90,7 @@ class Portfolio:
         self.total_profit_loss = round(self.portfolio.sum()["Profit / Loss"], 2)
         self.total_profit_loss_rel = (self.total_worth - self.total_investment)/self.total_investment*100
         self.total_profit_loss_rel = round(self.total_profit_loss_rel, 1)
+        self.total_realized_pl = round(self.portfolio.sum()["Realized P/L"], 2)
 
 
 if __name__ == '__main__':

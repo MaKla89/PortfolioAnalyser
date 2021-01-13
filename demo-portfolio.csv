@@ -1,5 +1,5 @@
-Name;Symbol;Amount;Asset Class;Investment
-Vanguard All-World;VGWL.DE;10;ETF;2000
-Ethereum;ethereum;5;Crypto;1000
-Bitcoin;bitcoin;0,1;Crypto;1000
-Xiaomi Corp;3CP.F;100;Stock;100
+Name;Symbol;Amount;Asset Class;Investment;Realized P/L
+Vanguard All-World;VGWL.DE;100;ETF;5000;1000
+Xiaomi Corp;3CP.F;50;Stock;100;0
+Ethereum;ethereum;5;Crypto;1000;1000
+Bitcoin;bitcoin;0,1;Crypto;500;0
