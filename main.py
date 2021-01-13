@@ -41,13 +41,13 @@ app.layout = html.Div(children=[
             html.H2(children="Total Realised"),
         ]),
 
-        html.Div(className="three columns", children=[
-            html.H2(children="Profit incl. Realised Positions"),
+        html.Div(className="six columns", children=[
+            html.H2(children="Absolute and Relative Profit incl. Realised Positions"),
         ]),
 
-        html.Div(className="three columns", children=[
-            html.H2(children="Rel. Profit incl. Realised Positions"),
-        ]),
+        # html.Div(className="three columns", children=[
+        #     html.H2(children="Rel. Profit incl. Realised Positions"),
+        # ]),
     ]),
 
     html.Div(className="row", style={"textAlign": "center", "font-size": "1.8em"}, children=[
