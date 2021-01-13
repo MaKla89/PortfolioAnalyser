@@ -3,7 +3,7 @@
 This is a small tool that visually summarizes your portfolio consisting of stocks, ETFs and crypto-currencies in a dash-based WebUI.
 That WebUI will be accessible on port 8085 of your machine.
 
-<img width="400" alt="Demo" align="center" src="https://user-images.githubusercontent.com/33317175/103465347-edeb6100-4d3a-11eb-85dd-c3a786cc3847.PNG">
+<img width="400" alt="Demo" align="center" src="https://user-images.githubusercontent.com/33317175/104483244-32db8700-55c8-11eb-9498-c1a609443588.png">
 
 # Installation
 
@@ -20,6 +20,7 @@ Please provide a portfolio.csv that contains your portfolio-setup's details:
   - amount, 
   - asset type (Stock, ETF or Crypto) and 
   - the invested money for each position)
+  - previously realised profits and losses per position (set 0 otherwise)
   
 For further details on this portfolio-configuration take a look at the included demo-portfolio.csv file!
 If no portfolio.csv is provided, the included demo-file will be used for demonstration purposes.
