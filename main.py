@@ -29,30 +29,38 @@ app.layout = html.Div(children=[
     ], style={"text-align": "center", "margin-bottom": 50}),
 
     html.Div(className="row", style={"textAlign": "center", "font-size": "2em"}, children=[
-        html.Div(className="three columns", children=[
+        html.Div(className="two columns", children=[
             html.H2(children="Total Value"),
         ]),
 
-        html.Div(className="three columns", children=[
+        html.Div(className="two columns", children=[
             html.H2(children="Total Investment"),
         ]),
 
-        html.Div(className="three columns", children=[
-            html.H2(children="Absolute Profit"),
+        html.Div(className="two columns", children=[
+            html.H2(children="Total Realised"),
         ]),
 
         html.Div(className="three columns", children=[
-            html.H2(children="Relative Profit"),
+            html.H2(children="Profit incl. Realised Positions"),
+        ]),
+
+        html.Div(className="three columns", children=[
+            html.H2(children="Rel. Profit incl. Realised Positions"),
         ]),
     ]),
 
     html.Div(className="row", style={"textAlign": "center", "font-size": "1.8em"}, children=[
-        html.Div(className="three columns", children=[
+        html.Div(className="two columns", children=[
             html.P(id="total_value", children=str(port.total_worth) + " €")
         ]),
 
-        html.Div(className="three columns", children=[
+        html.Div(className="two columns", children=[
             html.P(id="total_invest", children=str(port.total_investment) + " €")
+        ]),
+
+        html.Div(className="two columns", children=[
+            html.P(id="total_realised", children=str(port.total_realized_pl) + " €")
         ]),
 
         html.Div(className="three columns", children=[
@@ -106,6 +114,7 @@ app.layout = html.Div(children=[
               Output("holdings_performance", "figure"),
               Output("total_value", "children"),
               Output("total_invest", "children"),
+              Output("total_realised", "children"),
               Output("total_PL", "children"),
               Output("total_PL_rel", "children"),
               Input("refresh", "n_clicks"))
@@ -120,6 +129,7 @@ def update(n_clicks):
     holdings_perf = px.bar(new_df, x="Name", y="Profit / Loss")
     total_worth = str(port.total_worth)+" €"
     total_invest = str(port.total_investment)+" €"
+    total_realised = str(port.total_realized_pl)+" €"
     total_pl = str(port.total_profit_loss)+" €"
     total_pl_rel = str(port.total_profit_loss_rel)+" %"
 
@@ -128,6 +138,7 @@ def update(n_clicks):
             holdings_perf,
             total_worth,
             total_invest,
+            total_realised,
             total_pl,
             total_pl_rel]
 
