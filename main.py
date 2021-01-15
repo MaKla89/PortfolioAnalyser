@@ -18,7 +18,7 @@ app = dash.Dash(external_stylesheets=external_stylesheets, title="Portfolio Anal
 allocation = px.sunburst(df, values="Current Value", path=["Asset Class", "Name"])
 allocation.update_traces(textinfo="label+percent entry", insidetextorientation='auto', textfont_size=20)
 allocation.layout.update({"height": 700})
-holdings_perf = px.bar(df, x="Name", y="Profit / Loss")
+holdings_perf = px.bar(df, x="Name", y=["Realized P/L", "Profit / Loss"])
 
 app.layout = html.Div(children=[
     html.H1(children="Portfolio Analyser",
@@ -126,7 +126,7 @@ def update(n_clicks):
     allocation = px.sunburst(new_df, values="Current Value", path=["Asset Class", "Name"])
     allocation.update_traces(textinfo="label+percent entry", insidetextorientation='auto',  textfont_size=20)
     allocation.layout.update({"height": 700})
-    holdings_perf = px.bar(new_df, x="Name", y="Profit / Loss")
+    holdings_perf = px.bar(new_df, x="Name", y=["Realized P/L", "Profit / Loss"])
     total_worth = str(port.total_worth)+" €"
     total_invest = str(port.total_investment)+" €"
     total_realised = str(port.total_realized_pl)+" €"

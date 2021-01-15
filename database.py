@@ -70,7 +70,7 @@ class Portfolio:
                 current_value = float(float(position["Amount"])*new_price)
                 current_value = round(current_value, 2)
                 self.portfolio.at[index, "Current Value"] = current_value
-                win_loss = current_value - float(position["Investment"]) + float(position["Realized P/L"])
+                win_loss = current_value - float(position["Investment"])
                 win_loss = round(win_loss, 2)
                 self.portfolio.at[index, "Profit / Loss"] = win_loss
 
@@ -81,14 +81,14 @@ class Portfolio:
                 current_value = float(float(position["Amount"])*new_price)
                 current_value = round(current_value, 2)
                 self.portfolio.at[index, "Current Value"] = current_value
-                win_loss = current_value - float(position["Investment"]) + float(position["Realized P/L"])
+                win_loss = current_value - float(position["Investment"])
                 win_loss = round(win_loss, 2)
                 self.portfolio.at[index, "Profit / Loss"] = win_loss
 
         self.total_worth = round(self.portfolio.sum()["Current Value"], 2)
         self.total_investment = round(self.portfolio.sum()["Investment"], 2)
         self.total_realized_pl = round(self.portfolio.sum()["Realized P/L"], 2)
-        self.total_profit_loss = round(self.portfolio.sum()["Profit / Loss"], 2)
+        self.total_profit_loss = round(self.portfolio.sum()["Profit / Loss"] + self.total_realized_pl, 2)
         self.total_profit_loss_rel = (self.total_worth + self.total_realized_pl - self.total_investment) /self.total_investment*100
         self.total_profit_loss_rel = round(self.total_profit_loss_rel, 1)
         print(self.total_investment)
