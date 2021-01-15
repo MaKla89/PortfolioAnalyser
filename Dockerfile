@@ -1,4 +1,4 @@
-FROM python:rc-alpine3.12
+FROM python
 
 ARG TAG=latest
 
