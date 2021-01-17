@@ -3,7 +3,7 @@
 This is a small tool that visually summarizes your portfolio consisting of stocks, ETFs and crypto-currencies in a dash-based WebUI.
 That WebUI will be accessible on port 8085 of your machine.
 
-![Demo Screenshot](./screenshot.PNG)
+![Demo Screenshot](assets/screenshot.PNG)
 
 # Installation
 

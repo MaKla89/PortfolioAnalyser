@@ -5,6 +5,7 @@ ARG TAG=latest
 COPY main.py /
 COPY database.py /
 COPY demo-portfolio.csv /
+COPY assets/ /assets/
 
 RUN pip install pandas
 RUN pip install dash
