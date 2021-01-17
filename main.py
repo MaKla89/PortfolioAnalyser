@@ -5,20 +5,17 @@ import dash_html_components as html
 import dash_table
 from dash.dependencies import Input, Output
 import plotly.express as px
+import plotly.graph_objects as go
 
 
 port = database.Portfolio()
 port.update_portfolio()
 df = port.portfolio
 
-external_stylesheets = ["https://codepen.io/chriddyp/pen/bWLwgP.css"]
+app = dash.Dash(title="Portfolio Analyser")
 
-app = dash.Dash(external_stylesheets=external_stylesheets, title="Portfolio Analyser")
-
-allocation = px.sunburst(df, values="Current Value", path=["Asset Class", "Name"])
-allocation.update_traces(textinfo="label+percent entry", insidetextorientation='auto', textfont_size=20)
-allocation.layout.update({"height": 700})
-holdings_perf = px.bar(df, x="Name", y=["Realized P/L", "Profit / Loss"])
+allocation = go.Figure()
+holdings_perf = go.Figure()
 
 app.layout = html.Div(children=[
     html.H1(children="Portfolio Analyser",
@@ -92,8 +89,15 @@ app.layout = html.Div(children=[
             columns=[{"name": i, "id": i} for i in df.columns],
             data=df.to_dict(orient='records'),
             style_table={'overflowX': 'scroll'},
-            style_data={"font-size": "1.5em", "textAlign": "center"},
-            style_header={"font-size": "1.6em", "font-weight": "bold", "height": "50px", "textAlign": "center"}
+            style_data={"font-size": "1.5em",
+                        "backgroundColor": "rgba(0,0,0,0)",
+                        "textAlign": "center"},
+            style_header={"font-size": "1.6em",
+                          "font-weight": "bold",
+                          "height": "50px",
+                          "backgroundColor": "rgba(0,0,0,0)",
+                          "textAlign": "center"},
+
         ),
     ]),
 
@@ -123,10 +127,17 @@ def update(n_clicks):
     port.load_portfolio()
     port.update_portfolio()
     new_df = port.portfolio
-    allocation = px.sunburst(new_df, values="Current Value", path=["Asset Class", "Name"])
-    allocation.update_traces(textinfo="label+percent entry", insidetextorientation='auto',  textfont_size=20)
-    allocation.layout.update({"height": 700})
-    holdings_perf = px.bar(new_df, x="Name", y=["Realized P/L", "Profit / Loss"])
+
+    allocation = px.sunburst(new_df, values="Current Value", path=["Asset Class", "Name"],
+                             color_discrete_sequence=px.colors.qualitative.Dark2)
+    allocation.update_traces(textinfo="label+percent entry", insidetextorientation='auto',  textfont_size=24)
+    allocation.layout.update({"height": 700}, paper_bgcolor='rgba(0,0,0,0)', plot_bgcolor='rgba(0,0,0,0)')
+
+    holdings_perf = px.bar(new_df, x="Name", y=["Realized P/L", "Profit / Loss"],
+                           color_discrete_sequence=px.colors.qualitative.Dark2)
+    holdings_perf.update_traces(textfont_size=24)
+    holdings_perf.layout.update({"height": 700}, paper_bgcolor='rgba(0,0,0,0)', plot_bgcolor='rgba(0,0,0,0)')
+
     total_worth = str(port.total_worth)+" €"
     total_invest = str(port.total_investment)+" €"
     total_realised = str(port.total_realized_pl)+" €"
