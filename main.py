@@ -128,15 +128,26 @@ def update(n_clicks):
     port.update_portfolio()
     new_df = port.portfolio
 
-    allocation = px.sunburst(new_df, values="Current Value", path=["Asset Class", "Name"],
+    allocation = px.sunburst(new_df,
+                             values="Current Value",
+                             path=["Asset Class", "Name"],
                              color_discrete_sequence=px.colors.qualitative.Dark2)
-    allocation.update_traces(textinfo="label+percent entry", insidetextorientation='auto',  textfont_size=24)
-    allocation.layout.update({"height": 700}, paper_bgcolor='rgba(0,0,0,0)', plot_bgcolor='rgba(0,0,0,0)')
+    allocation.update_traces(textinfo="label+percent entry",
+                             insidetextorientation='auto',
+                             textfont_size=24,
+                             marker=dict(line=dict(color='#FFFFFF', width=2)))
+    allocation.layout.update({"height": 700},
+                             paper_bgcolor='rgba(0,0,0,0)',
+                             plot_bgcolor='rgba(0,0,0,0)')
 
-    holdings_perf = px.bar(new_df, x="Name", y=["Realized P/L", "Profit / Loss"],
+    holdings_perf = px.bar(new_df,
+                           x="Name",
+                           y=["Realized P/L", "Profit / Loss"],
                            color_discrete_sequence=px.colors.qualitative.Dark2)
     holdings_perf.update_traces(textfont_size=24)
-    holdings_perf.layout.update({"height": 700}, paper_bgcolor='rgba(0,0,0,0)', plot_bgcolor='rgba(0,0,0,0)')
+    holdings_perf.layout.update({"height": 700},
+                                paper_bgcolor='rgba(0,0,0,0)',
+                                plot_bgcolor='rgba(0,0,0,0)')
 
     total_worth = str(port.total_worth)+" €"
     total_invest = str(port.total_investment)+" €"
