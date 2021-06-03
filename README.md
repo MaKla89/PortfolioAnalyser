@@ -9,7 +9,7 @@ That WebUI will be accessible on port 8085 of your machine.
 
 ## Prerequisites
 
-This tool requires "dash", "pandas" and "requests" for python to be installed (via `pip install dash pandas requests`).
+This tool requires "dash", "dash-auth", "pandas" and "requests" for python to be installed (via `pip install dash dash-auth pandas requests`).
 
 ### Portfolio-Setup
 
@@ -32,6 +32,11 @@ Also acquire and provide a rapid-API-key (which is free but requires account-reg
 ### Where to place these two files
  
 Both files (`portfolio.csv` & `api_key.txt`) need to be placed in the same folder as the main.py
+
+
+### Enabling Basic-Auth (Optional)
+
+You can optionally use basic-auth to have some rudimentary login required to access your Dashboard. Create a text-file called `basic_auth.txt` that has a Username in its first line and a Password in its second line. Place that file in the main-folder (where the main.py is to be found, too).
 
 # Usage
 

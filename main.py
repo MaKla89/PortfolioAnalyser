@@ -1,18 +1,30 @@
 import database
 import dash
+import dash_auth
 import dash_core_components as dcc
 import dash_html_components as html
 import dash_table
 from dash.dependencies import Input, Output
 import plotly.express as px
 import plotly.graph_objects as go
+import os.path
 
 
 port = database.Portfolio()
 port.update_portfolio()
 df = port.portfolio
 
+if os.path.isfile("basic_auth.txt"):
+    f = open("basic_auth.txt", "r")
+    auth_cred_pair_raw = f.read().splitlines()
+    auth_cred_pair = {auth_cred_pair_raw[0]: auth_cred_pair_raw[1]}
+    f.close()
+
 app = dash.Dash(title="Portfolio Analyser")
+
+if os.path.isfile("basic_auth.txt"):
+    auth = dash_auth.BasicAuth(app, auth_cred_pair)
+
 
 allocation = go.Figure()
 holdings_perf = go.Figure()
