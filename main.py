@@ -14,11 +14,15 @@ port = database.Portfolio()
 port.update_portfolio()
 df = port.portfolio
 
-if os.path.isfile("basic_auth.txt"):
-    f = open("basic_auth.txt", "r")
-    auth_cred_pair_raw = f.read().splitlines()
-    auth_cred_pair = {auth_cred_pair_raw[0]: auth_cred_pair_raw[1]}
-    f.close()
+try:
+    if os.path.isfile("basic_auth.txt"):
+        f = open("basic_auth.txt", "r")
+        auth_cred_pair_raw = f.read().splitlines()
+        auth_cred_pair = {auth_cred_pair_raw[0]: auth_cred_pair_raw[1]}
+        f.close()
+except Exception as e:
+    print("Cannot find or load basic_auth.txt, resuming with basic-auth DISABLED!")
+    print(e)
 
 app = dash.Dash(title="Portfolio Analyser")
 
