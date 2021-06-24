@@ -12,6 +12,7 @@ RUN pip install dash
 RUN pip install dash-auth
 RUN pip install requests
 RUN pip install yfinance
+RUN pip install waitress
 
 EXPOSE 8085/tcp
 
