@@ -9,7 +9,7 @@ That WebUI will be accessible on port 8085 of your machine.
 
 ## Prerequisites
 
-This tool requires "dash", "dash-auth", "pandas" and "requests" for python to be installed (via `pip install dash dash-auth pandas requests`).
+This tool requires "dash", "dash-auth", "pandas", "yfinance", "waitress" and "requests" for python to be installed (via `pip install dash dash-auth pandas requests yfinance`).
 
 ### Portfolio-Setup
 
@@ -25,13 +25,7 @@ Please provide a portfolio.csv that contains your portfolio-setup's details:
 For further details on this portfolio-configuration take a look at the included demo-portfolio.csv file!
 If no portfolio.csv is provided, the included demo-file will be used for demonstration purposes.
  
-### API-Key (for yahoo-finance via RapidAPI.com)
- 
-Also acquire and provide a rapid-API-key (which is free but requires account-registration at rapidapi.com) in a .txt-file named `api_key.txt` with nothing in it but your api-key. If no `api_key.txt` is provided, the program will not work unless your portfolio does only contain crypto-currencies!
-
-### Where to place these two files
- 
-Both files (`portfolio.csv` & `api_key.txt`) need to be placed in the same folder as the main.py
+The `portfolio.csv` file needs to be placed in the same folder as the main.py
 
 
 ### Enabling Basic-Auth (Optional)
@@ -44,4 +38,4 @@ Start the tool with `python main.py`. Once the flask-server is started, you can 
   
 # Usage with Docker
 
-Please mount your `portfolio.csv` & `api_key.txt` files directly into the root folder `/ ` and expose port 8085 or map it to a desired port. After this you can run the container and access the WebUI via "127.0.0.1:8085" from the same machine or from any other device within the same network by accessing "<server-IP>:8085" via a web-browser. After changing the content in your `portfolio.csv`-file you might have to reload the webUI or click on the "Load / Refresh Data" button.
+Please mount your `portfolio.csv` file directly into the root folder `/ ` and expose port 8085 or map it to a desired port. After this you can run the container and access the WebUI via "127.0.0.1:8085" from the same machine or from any other device within the same network by accessing "<server-IP>:8085" via a web-browser. After changing the content in your `portfolio.csv`-file you might have to reload the webUI or click on the "Load / Refresh Data" button.

@@ -8,6 +8,7 @@ from dash.dependencies import Input, Output
 import plotly.express as px
 import plotly.graph_objects as go
 import os.path
+import waitress
 
 
 port = database.Portfolio()
@@ -20,8 +21,10 @@ try:
         auth_cred_pair_raw = f.read().splitlines()
         auth_cred_pair = {auth_cred_pair_raw[0]: auth_cred_pair_raw[1]}
         f.close()
+    else:
+        print("WARNING: Could not find or load 'basic_auth.txt' file, resuming with basic-auth DISABLED!")
 except Exception as e:
-    print("Cannot find or load basic_auth.txt, resuming with basic-auth DISABLED!")
+    print("WARNING: Could not find or load 'basic_auth.txt' file, resuming with basic-auth DISABLED!")
     print(e)
 
 app = dash.Dash(title="Portfolio Analyser")
@@ -57,10 +60,6 @@ app.layout = html.Div(children=[
         html.Div(className="six columns", children=[
             html.H2(children="Absolute and Relative Profit incl. Realised Positions"),
         ]),
-
-        # html.Div(className="three columns", children=[
-        #     html.H2(children="Rel. Profit incl. Realised Positions"),
-        # ]),
     ]),
 
     html.Div(className="row", style={"textAlign": "center", "font-size": "1.8em"}, children=[
@@ -181,8 +180,8 @@ def update(n_clicks):
             total_pl_rel]
 
 
-app.run_server(debug=False, host="0.0.0.0", port=8085)
-
+if __name__ == "__main__":
+    waitress.serve(app.server, host="0.0.0.0", port=8085)
 
 
 
