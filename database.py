@@ -1,6 +1,6 @@
 import pandas as pd
 import requests
-import yfinance as yf
+from bs4 import BeautifulSoup
 
 
 class Portfolio:
@@ -13,6 +13,14 @@ class Portfolio:
         self.total_profit_loss = 0
         self.total_profit_loss_rel = 0
         self.total_realized_pl = 0
+
+    def get_price(self, symbol):
+        url = "https://finance.yahoo.com/quote/" + str(symbol)
+        request = requests.get(url).text
+        soup = BeautifulSoup(request, 'html.parser')
+        span = soup.find('span', {'class': "Trsdu(0.3s) Fw(b) Fz(36px) Mb(-4px) D(ib)"})
+        price = float(span.contents[0])
+        return price
 
     def load_portfolio(self):
         try:
@@ -52,9 +60,7 @@ class Portfolio:
                 self.portfolio.at[index, "Profit / Loss"] = win_loss
 
             elif position["Asset Class"] == "Stock" or position["Asset Class"] == "ETF":
-
-                ticker = yf.Ticker(ticker=position["Symbol"])
-                new_price = float(ticker.info["regularMarketPrice"])
+                new_price = self.get_price(position["Symbol"])
                 self.portfolio.at[index,"Current Price"] = new_price
                 current_value = float(float(position["Amount"])*new_price)
                 current_value = round(current_value, 2)
@@ -69,9 +75,6 @@ class Portfolio:
         self.total_profit_loss = round(self.portfolio.sum()["Profit / Loss"] + self.total_realized_pl, 2)
         self.total_profit_loss_rel = (self.total_worth + self.total_realized_pl - self.total_investment) /self.total_investment*100
         self.total_profit_loss_rel = round(self.total_profit_loss_rel, 1)
-        # print(self.total_investment)
-        # print(self.total_profit_loss)
-        # print(self.total_profit_loss_rel)
 
 
 if __name__ == '__main__':
