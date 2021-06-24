@@ -38,51 +38,55 @@ holdings_perf = go.Figure()
 
 app.layout = html.Div(children=[
     html.H1(children="Portfolio Analyser",
-            style={"textAlign": "center"}),
+            style={"textAlign": "center", "font-size": "8rem", "font-weight": "780"}),
 
     html.Div([
         html.Button(children="Load / Refresh Data", id='refresh', n_clicks=0, style={"margin-top": 20}),
     ], style={"text-align": "center", "margin-bottom": 50}),
 
+    html.Hr(),
+
     html.Div(className="row", style={"textAlign": "center", "font-size": "2em"}, children=[
         html.Div(className="two columns", children=[
-            html.H2(children="Total Value"),
+            html.H4(children=["Total", html.Br(), "Value"]),
         ]),
 
         html.Div(className="two columns", children=[
-            html.H2(children="Total Investment"),
+            html.H4(children="Total Investment"),
         ]),
 
         html.Div(className="two columns", children=[
-            html.H2(children="Total Realised"),
+            html.H4(children="Total Realised"),
         ]),
 
         html.Div(className="six columns", children=[
-            html.H2(children="Absolute and Relative Profit incl. Realised Positions"),
+            html.H4(children="Absolute and Relative Profit incl. Realised Positions"),
         ]),
     ]),
 
-    html.Div(className="row", style={"textAlign": "center", "font-size": "1.8em"}, children=[
+    html.Div(className="row", style={"textAlign": "center", "font-size": "1.5em"}, children=[
         html.Div(className="two columns", children=[
-            html.P(id="total_value", children=str(port.total_worth) + " €")
+            html.P(id="total_value")
         ]),
 
         html.Div(className="two columns", children=[
-            html.P(id="total_invest", children=str(port.total_investment) + " €")
+            html.P(id="total_invest")
         ]),
 
         html.Div(className="two columns", children=[
-            html.P(id="total_realised", children=str(port.total_realized_pl) + " €")
+            html.P(id="total_realised")
         ]),
 
         html.Div(className="three columns", children=[
-            html.P(id="total_PL", children=str(port.total_profit_loss) + " €")
+            html.P(id="total_PL")
         ]),
 
         html.Div(className="three columns", children=[
-            html.P(id="total_PL_rel", children=str(port.total_profit_loss_rel) + " %")
+            html.P(id="total_PL_rel")
         ]),
     ]),
+
+    html.Hr(),
 
     html.Div(children=[
 
@@ -95,6 +99,8 @@ app.layout = html.Div(children=[
             )
         ]),
     ]),
+
+    html.Hr(),
 
     html.Div(children=[
         html.H2(children="Holdings & Performance",
@@ -116,6 +122,8 @@ app.layout = html.Div(children=[
         ),
     ]),
 
+    html.Hr(),
+
     html.Div(children=[
         html.H2(children="Profits & Losses per Position",
                 style={"textAlign": "center"}),
@@ -125,7 +133,7 @@ app.layout = html.Div(children=[
         )
     ], style={"marginTop": 50})
 
-], style={"border": "50px white solid"})
+], style={"max-width": "1080px", "margin-inline": "auto"})
 
 
 @app.callback(Output("table", "data"),
@@ -164,11 +172,11 @@ def update(n_clicks):
                                 paper_bgcolor='rgba(0,0,0,0)',
                                 plot_bgcolor='rgba(0,0,0,0)')
 
-    total_worth = str(port.total_worth)+" €"
-    total_invest = str(port.total_investment)+" €"
-    total_realised = str(port.total_realized_pl)+" €"
-    total_pl = str(port.total_profit_loss)+" €"
-    total_pl_rel = str(port.total_profit_loss_rel)+" %"
+    total_worth = str(round(port.total_worth))+" €"
+    total_invest = str(round(port.total_investment))+" €"
+    total_realised = str(round(port.total_realized_pl))+" €"
+    total_pl = str(round(port.total_profit_loss))+" €"
+    total_pl_rel = str(round(port.total_profit_loss_rel))+" %"
 
     return [new_df.to_dict(orient='records'),
             allocation,
