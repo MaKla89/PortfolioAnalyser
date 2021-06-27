@@ -69,6 +69,16 @@ class Portfolio:
                 win_loss = round(win_loss, 2)
                 self.portfolio.at[index, "Profit / Loss"] = win_loss
 
+            elif position["Asset Class"] == "Cash":
+                new_price = 1.0
+                self.portfolio.at[index,"Current Price"] = new_price
+                current_value = float(float(position["Amount"])*new_price)
+                current_value = round(current_value, 2)
+                self.portfolio.at[index, "Current Value"] = current_value
+                win_loss = current_value - float(position["Investment"])
+                win_loss = round(win_loss, 2)
+                self.portfolio.at[index, "Profit / Loss"] = win_loss
+
         self.total_worth = round(self.portfolio.sum()["Current Value"], 2)
         self.total_investment = round(self.portfolio.sum()["Investment"], 2)
         self.total_realized_pl = round(self.portfolio.sum()["Realized P/L"], 2)

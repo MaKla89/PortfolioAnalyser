@@ -18,8 +18,8 @@ Please provide a portfolio.csv that contains your portfolio-setup's details:
   - holdings' names, 
   - trade-symbols, 
   - amount, 
-  - asset type (Stock, ETF or Crypto) and 
-  - the invested money for each position)
+  - asset type (Cash, Stock, ETF or Crypto) and 
+  - the invested money for each position ("Amount" and "Invested" are equal for Cash)
   - previously realised profits and losses per position (set 0 otherwise)
   
 For further details on this portfolio-configuration take a look at the included demo-portfolio.csv file!

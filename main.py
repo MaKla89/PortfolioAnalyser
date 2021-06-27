@@ -176,7 +176,7 @@ def update(n_clicks):
     total_invest = str(round(port.total_investment))+" €"
     total_realised = str(round(port.total_realized_pl))+" €"
     total_pl = str(round(port.total_profit_loss))+" €"
-    total_pl_rel = str(round(port.total_profit_loss_rel))+" %"
+    total_pl_rel = str(round(port.total_profit_loss_rel, 1))+" %"
 
     return [new_df.to_dict(orient='records'),
             allocation,
