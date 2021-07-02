@@ -16,10 +16,17 @@ class Portfolio:
 
     def get_price(self, symbol):
         url = "https://finance.yahoo.com/quote/" + str(symbol)
-        request = requests.get(url).text
-        soup = BeautifulSoup(request, 'html.parser')
-        span = soup.find('span', {'class': "Trsdu(0.3s) Fw(b) Fz(36px) Mb(-4px) D(ib)"})
-        price = float(span.contents[0])
+        try:
+            request = requests.get(url).text
+            soup = BeautifulSoup(request, 'html.parser')
+            span = soup.find('span', {'class': "Trsdu(0.3s) Fw(b) Fz(36px) Mb(-4px) D(ib)"})
+            print(symbol)
+            print(span)
+            price = float(span.contents[0])
+        except Exception as e:
+            print(f"Getting new price for {symbol} did fail. Error-Message:")
+            print(e)
+            price = 0
         return price
 
     def load_portfolio(self):
