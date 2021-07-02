@@ -1,6 +1,7 @@
 import pandas as pd
 import requests
 from bs4 import BeautifulSoup
+from fake_useragent import UserAgent
 
 
 class Portfolio:
@@ -15,13 +16,12 @@ class Portfolio:
         self.total_realized_pl = 0
 
     def get_price(self, symbol):
+        ua = UserAgent()
         url = "https://finance.yahoo.com/quote/" + str(symbol)
         try:
-            request = requests.get(url).text
+            request = requests.get(url, headers={'User-Agent': ua.random}).text
             soup = BeautifulSoup(request, 'html.parser')
             span = soup.find('span', {'class': "Trsdu(0.3s) Fw(b) Fz(36px) Mb(-4px) D(ib)"})
-            print(symbol)
-            print(span)
             price = float(span.contents[0])
         except Exception as e:
             print(f"Getting new price for {symbol} did fail. Error-Message:")

@@ -13,6 +13,7 @@ RUN pip install dash-auth
 RUN pip install requests
 RUN pip install beautifulsoup4
 RUN pip install waitress
+RUN pip install fake-useragent
 
 EXPOSE 8085/tcp
 

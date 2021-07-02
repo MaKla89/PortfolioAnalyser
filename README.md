@@ -9,7 +9,7 @@ That WebUI will be accessible on port 8085 of your machine.
 
 ## Prerequisites
 
-This tool requires "dash", "dash-auth", "pandas", "beautifulsoup4", "waitress" and "requests" for python to be installed (via `pip install dash dash-auth pandas requests beautifulsoup4`).
+This tool requires "dash", "dash-auth", "pandas", "beautifulsoup4", "waitress", "fake-useragent" and "requests" for python to be installed (via `pip install dash dash-auth pandas requests beautifulsoup4 fake-useragent`).
 
 ### Portfolio-Setup
 
