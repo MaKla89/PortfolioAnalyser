@@ -17,12 +17,11 @@ class Portfolio:
 
     def get_price(self, symbol):
         ua = UserAgent()
-        url = "https://finance.yahoo.com/quote/" + str(symbol)
+        url = "https://finance.yahoo.com/quote/" + str(symbol) + "?guccounter=2"
         try:
             request = requests.get(url, headers={'User-Agent': ua.random}).text
             soup = BeautifulSoup(request, 'html.parser')
-            span = soup.find('span', {'class': "Trsdu(0.3s) Fw(b) Fz(36px) Mb(-4px) D(ib)"})
-            price = float(span.contents[0])
+            price = float(soup.find("fin-streamer", {"class": "Fw(b) Fz(36px) Mb(-4px) D(ib)"})["value"])
         except Exception as e:
             print(f"Getting new price for {symbol} did fail. Error-Message:")
             print(e)
