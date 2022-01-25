@@ -15,6 +15,6 @@ RUN pip install beautifulsoup4
 RUN pip install waitress
 RUN pip install fake-useragent
 
-EXPOSE 8085/tcp
+PUBLISH 8085/tcp
 
 CMD python main.py
