@@ -25,12 +25,12 @@ Please provide a portfolio.csv that contains your portfolio-setup's details:
 For further details on this portfolio-configuration take a look at the included demo-portfolio.csv file!
 If no portfolio.csv is provided, the included demo-file will be used for demonstration purposes.
  
-The `portfolio.csv` file needs to be placed in the same folder as the main.py
+The `portfolio.csv` file needs to be placed in the data-folder.
 
 
 ### Enabling Basic-Auth (Optional)
 
-You can optionally use basic-auth to have some rudimentary login required to access your Dashboard. Create a text-file called `basic_auth.txt` that has a Username in its first line and a Password in its second line. Place that file in the main-folder (where the main.py is to be found, too).
+You can optionally use basic-auth to have some rudimentary login required to access your Dashboard. Create a text-file called `basic_auth.txt` that has a Username in its first line and a Password in its second line. Place that file in the data-folder.
 
 # Usage
 
@@ -38,4 +38,4 @@ Start the tool with `python main.py`. Once the flask-server is started, you can 
   
 # Usage with Docker
 
-Please mount your `portfolio.csv` file directly into the root folder `/ ` and expose port 8085 or map it to a desired port. After this you can run the container and access the WebUI via "127.0.0.1:8085" from the same machine or from any other device within the same network by accessing "<server-IP>:8085" via a web-browser. After changing the content in your `portfolio.csv`-file you might have to reload the webUI or click on the "Load / Refresh Data" button.
+Please mount a folder containing `portfolio.csv` and optionally the `basic-auth.txt` file as the data folder `/data ` and expose port 8085 or map it to a desired port. After this you can run the container and access the WebUI via "127.0.0.1:8085" from the same machine or from any other device within the same network by accessing "<server-IP>:8085" via a web-browser. After changing the content in your `portfolio.csv`-file you might have to reload the webUI or click on the "Load / Refresh Data" button.

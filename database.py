@@ -30,12 +30,12 @@ class Portfolio:
 
     def load_portfolio(self):
         try:
-            self.portfolio = pd.read_csv("portfolio.csv", sep=";", decimal=",")     # "portfolio.csv" must be provided!
+            self.portfolio = pd.read_csv("data/portfolio.csv", sep=";", decimal=",")     # "portfolio.csv" must be provided!
             print("Loading portfolio-information from 'portfolio.csv' was successful!")
 
         except FileNotFoundError:
             print("WARNING: Could not load or find 'portfolio.csv' file, resuming with DEMO-Portfolio!")
-            self.portfolio = pd.read_csv("demo-portfolio.csv", sep=";", decimal=",")
+            self.portfolio = pd.read_csv("data/demo-portfolio.csv", sep=";", decimal=",")
 
     def update_portfolio(self):
         for index, position in self.portfolio.iterrows():

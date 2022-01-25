@@ -1,9 +1,9 @@
 import database
 import dash
 import dash_auth
-import dash_core_components as dcc
-import dash_html_components as html
-import dash_table
+from dash import dcc
+from dash import html
+from dash import dash_table
 from dash.dependencies import Input, Output
 import plotly.express as px
 import plotly.graph_objects as go
@@ -15,22 +15,21 @@ port = database.Portfolio()
 port.update_portfolio()
 df = port.portfolio
 
+app = dash.Dash(title="Portfolio Analyser")
+
 try:
-    if os.path.isfile("basic_auth.txt"):
-        f = open("basic_auth.txt", "r")
+    if os.path.isfile("data/basic_auth.txt"):
+        print("INFO: Found auth credentials in 'basic_auth.txt', resuming with basic-auth ENABLED")
+        f = open("data/basic_auth.txt", "r")
         auth_cred_pair_raw = f.read().splitlines()
         auth_cred_pair = {auth_cred_pair_raw[0]: auth_cred_pair_raw[1]}
         f.close()
+        auth = dash_auth.BasicAuth(app, auth_cred_pair)
     else:
         print("WARNING: Could not find or load 'basic_auth.txt' file, resuming with basic-auth DISABLED!")
 except Exception as e:
     print("WARNING: Could not find or load 'basic_auth.txt' file, resuming with basic-auth DISABLED!")
     print(e)
-
-app = dash.Dash(title="Portfolio Analyser")
-
-if os.path.isfile("basic_auth.txt"):
-    auth = dash_auth.BasicAuth(app, auth_cred_pair)
 
 
 allocation = go.Figure()
