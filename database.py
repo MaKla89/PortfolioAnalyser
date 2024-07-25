@@ -21,7 +21,7 @@ class Portfolio:
         try:
             request = requests.get(url, headers={'User-Agent': ua.random}).text
             soup = BeautifulSoup(request, 'html.parser')
-            price = float(soup.find("fin-streamer", {"class": "Fw(b) Fz(36px) Mb(-4px) D(ib)"})["value"])
+            price = float(soup.find("fin-streamer", {"class": "livePrice yf-mgkamr"})["data-value"])
         except Exception as e:
             print(f"Getting new price for {symbol} did fail. Error-Message:")
             print(e)
