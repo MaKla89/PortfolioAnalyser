@@ -11,9 +11,8 @@ RUN pip install pandas
 RUN pip install dash
 RUN pip install dash-auth
 RUN pip install requests
-RUN pip install beautifulsoup4
 RUN pip install waitress
-RUN pip install fake-useragent
+RUN pip install yahoofinancials
 
 EXPOSE 8085/tcp
 

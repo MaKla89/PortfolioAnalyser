@@ -1,7 +1,6 @@
 import pandas as pd
 import requests
-from bs4 import BeautifulSoup
-from fake_useragent import UserAgent
+from yahoofinancials import YahooFinancials
 
 
 class Portfolio:
@@ -16,17 +15,16 @@ class Portfolio:
         self.total_realized_pl = 0
 
     def get_price(self, symbol):
-        ua = UserAgent()
-        url = "https://finance.yahoo.com/quote/" + str(symbol) + "?guccounter=2"
+
         try:
-            request = requests.get(url, headers={'User-Agent': ua.random}).text
-            soup = BeautifulSoup(request, 'html.parser')
-            price = float(soup.find("fin-streamer", {"class": "livePrice yf-mgkamr"})["data-value"])
+            price_yf = YahooFinancials(symbol).get_current_price()
+            print(price_yf)
+
         except Exception as e:
             print(f"Getting new price for {symbol} did fail. Error-Message:")
             print(e)
-            price = 0
-        return price
+
+        return price_yf
 
     def load_portfolio(self):
         try:
