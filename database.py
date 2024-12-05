@@ -18,7 +18,6 @@ class Portfolio:
 
         try:
             price_yf = YahooFinancials(symbol).get_current_price()
-            print(price_yf)
 
         except Exception as e:
             print(f"Getting new price for {symbol} did fail. Error-Message:")
@@ -36,21 +35,52 @@ class Portfolio:
             self.portfolio = pd.read_csv("data/demo-portfolio.csv", sep=";", decimal=",")
 
     def update_portfolio(self):
+        cryptos = []
+        stocks = []
+
+        # Create lists of stock- and crypto-symbols to request prices for later:
         for index, position in self.portfolio.iterrows():
 
             if position["Asset Class"] == "Crypto":
+                cryptos.append(position["Symbol"])
 
+            elif position["Asset Class"] == "Stock" or position["Asset Class"] == "ETF":
+                stocks.append(position["Symbol"])
+
+        # Requesting current prices for all cryptos in one request:
+        crypto_request_url = str(self.crypto_api_url)
+
+        for crypto in cryptos:
+            crypto_request_url = crypto_request_url + str(crypto) + "%2C"
+
+        crypto_request_url = crypto_request_url[:-3]
+        crypto_request_url = crypto_request_url + "&vs_currencies=eur"
+        # print("Crypto-Request-URL:")
+        # print(crypto_request_url)
+
+        try:
+            crypto_response = requests.get(crypto_request_url)
+        except Exception:
+            print(" ---------- Exception! ---------- ")
+            print("Probably a problem with CoinGecko-API. See API-response:")
+            print(crypto_response)
+            print(" -------------------------------- ")
+
+        crypto_new_prices = crypto_response.json()
+        # print("Crypto Response:")
+        # print(crypto_new_prices)
+        # print(crypto_new_prices['bitcoin']['eur'])
+
+
+        # Enter new prices into main asset DB:
+        for index, position in self.portfolio.iterrows():
+            if position["Asset Class"] == "Crypto":
                 try:
-                    crypto_response = requests.get((str(self.crypto_api_url) +
-                                              str(position["Symbol"]) +
-                                              "&vs_currencies=eur"))
-                    crypto_response = crypto_response.json()
-                    new_price = crypto_response[str(position["Symbol"])]["eur"]
+                    new_price = crypto_new_prices[str(position["Symbol"])]["eur"]
 
                 except Exception:
                     print(" ---------- Exception! ---------- ")
-                    print("Probably a problem with CoinGecko-API. See API-response:")
-                    print(crypto_response)
+                    print(" A problem occured in mapping new crypto prices from API response")
                     print(" -------------------------------- ")
                     new_price = 0
 

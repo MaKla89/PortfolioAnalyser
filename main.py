@@ -165,6 +165,7 @@ def update(n_clicks):
     holdings_perf = px.bar(new_df,
                            x="Name",
                            y=["Realized P/L", "Profit / Loss"],
+                           orientation='h',
                            color_discrete_sequence=px.colors.qualitative.Dark2)
     holdings_perf.update_traces(textfont_size=24)
     holdings_perf.layout.update({"height": 700},
