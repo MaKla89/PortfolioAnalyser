@@ -71,9 +71,6 @@ class Portfolio:
         # Requesting current prices for all stocks in one request:
         try:
             price_yf = YahooFinancials(stocks).get_current_price()
-            # print("Stock Price according to YF: ")
-            # print(price_yf)
-            # print(price_yf["VGWL.DE"])
 
         except Exception as e:
             print(f"Getting new price for {stocks} did fail. Error-Message:")
