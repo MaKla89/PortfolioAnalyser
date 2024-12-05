@@ -1,7 +1,7 @@
 # PortfolioAnalyser
 
 This is a small tool that visually summarizes your portfolio consisting of stocks, ETFs and crypto-currencies in a dash-based WebUI.
-That WebUI will be accessible on port 8085 of your machine.
+That WebUI will be accessible on port 8085 of your machine. It uses the free version of the coingecko-API and the yahoofinancials library for fetching current price data.
 
 <img width="400" alt="Demo" align="center" src="https://github.com/MaKla89/PortfolioAnalyser/blob/main/assets/screenshot.PNG?raw=true">
 
