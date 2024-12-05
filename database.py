@@ -55,8 +55,7 @@ class Portfolio:
 
         crypto_request_url = crypto_request_url[:-3]
         crypto_request_url = crypto_request_url + "&vs_currencies=eur"
-        # print("Crypto-Request-URL:")
-        # print(crypto_request_url)
+
 
         try:
             crypto_response = requests.get(crypto_request_url)
@@ -67,9 +66,18 @@ class Portfolio:
             print(" -------------------------------- ")
 
         crypto_new_prices = crypto_response.json()
-        # print("Crypto Response:")
-        # print(crypto_new_prices)
-        # print(crypto_new_prices['bitcoin']['eur'])
+
+
+        # Requesting current prices for all stocks in one request:
+        try:
+            price_yf = YahooFinancials(stocks).get_current_price()
+            # print("Stock Price according to YF: ")
+            # print(price_yf)
+            # print(price_yf["VGWL.DE"])
+
+        except Exception as e:
+            print(f"Getting new price for {stocks} did fail. Error-Message:")
+            print(e)
 
 
         # Enter new prices into main asset DB:
@@ -94,7 +102,7 @@ class Portfolio:
                 self.portfolio.at[index, "Profit / Loss"] = win_loss
 
             elif position["Asset Class"] == "Stock" or position["Asset Class"] == "ETF":
-                new_price = self.get_price(position["Symbol"])
+                new_price = price_yf[position["Symbol"]]
                 self.portfolio.at[index,"Current Price"] = new_price
                 current_value = float(float(position["Amount"])*new_price)
                 current_value = round(current_value, 2)
