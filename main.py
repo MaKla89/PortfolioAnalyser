@@ -10,6 +10,7 @@ import plotly.graph_objects as go
 import os.path
 import waitress
 
+print("Portfolio Analyser v1.5 starting!")
 
 port = database.Portfolio()
 port.update_portfolio()
